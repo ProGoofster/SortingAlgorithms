@@ -22,6 +22,7 @@ public class Tester {
         sa.sorty(arr);
         double endTime = System.nanoTime();
 
+        System.out.println(sa.getClass().getSimpleName()+ " sorting finished with " + size+ " size");
         return (endTime - startTime);
     }
 
@@ -29,13 +30,14 @@ public class Tester {
     // iterations provided and print to the console the
     // average time the algorithm takes to sort an array of
     // the given size.
-    public void test(int iterations, int size){
+    public double test(int iterations, int size){
         double totalTime = 0;
         for(int i = 0; i < iterations; i++){
             totalTime += singleTest(size);
         }
 
-        System.out.println((totalTime/iterations)/1000000+ "ms");
+        System.out.println(sa.getClass().getSimpleName()+ " sorting finished with " + iterations + " iterations and " + size+ " size");
+        return (totalTime/iterations)/1000000;
     }
 
 }

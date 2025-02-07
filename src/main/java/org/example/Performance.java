@@ -14,28 +14,33 @@ public class Performance{
         if (!outputDir.exists()) outputDir.mkdir();
 
         SortingAlgorithm[] saList = {
-                new BubbleSort(),
-                new InsertionSort(),
-                new SelectionSort(),
-                new ShellSort(),
-                new QuickSort(),
                 new MergeSort(),
+                new QuickSort(),
+                new ShellSort(),
+                new SelectionSort(),
+                new InsertionSort(),
+                new BubbleSort(),
         };
 
         int[] arraySizes = {100, 500, 1000, 2000, 5000, 10000, 20000, 75000, 150000};
 
-        for(SortingAlgorithm sa : saList){
 
 
-            try {
-                FileWriter myWriter = new FileWriter(new File(outputDir,  "output.txt"));
-                myWriter.write();
-                myWriter.close();
-                System.out.println("Successfully wrote to " +sa.getClass().getSimpleName() + ".txt");
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
+
+        try {
+            FileWriter myWriter = new FileWriter(new File(outputDir,  "output.txt"));
+            for(SortingAlgorithm sa : saList){
+                Tester tester = new Tester(sa);
+                myWriter.write("Sorting Algorithm - " + sa.getClass().getSimpleName()+"\n");
+                for(int arraySize : arraySizes){
+                    myWriter.write("Sorted "+arraySize+" elements in "+tester.test(20, arraySize)+" ms (avg)\n");
+                }
             }
-
+            myWriter.close();
+            System.out.println("Successfully wrote to file");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
+
     }
 }
